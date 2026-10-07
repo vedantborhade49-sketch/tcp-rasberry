@@ -16,18 +16,10 @@ class AerosarProtocol:
     HEADER_FORMAT = ">IQI"
     HEADER_SIZE = struct.calcsize(HEADER_FORMAT)
     
-    def __init__(self):
-        self.frame_id = 0
-        
-    def pack_frame(self, jpeg_payload):
+    def pack_frame(self, frame_id, jpeg_payload):
         """
         Packs a JPEG payload into an AEROSAR frame with the 16-byte header.
-        
-        Args:
-            jpeg_payload (bytes): The JPEG encoded image data.
-            
-        Returns:
-            bytes: The complete packet (header + payload) ready for TCP transmission.
+        Frame ID is passed externally to ensure it only increments when transmitted.
         """
         payload_size = len(jpeg_payload)
         timestamp_ms = int(time.time() * 1000)
@@ -35,13 +27,10 @@ class AerosarProtocol:
         # Pack header
         header = struct.pack(
             self.HEADER_FORMAT,
-            self.frame_id,
+            frame_id,
             timestamp_ms,
             payload_size
         )
-        
-        # Increment frame ID for the next frame
-        self.frame_id += 1
         
         # Return concatenated packet
         return header + jpeg_payload
