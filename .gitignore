@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# Environment variables
+.env
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test/Generated data
+*.mp4
+*.avi
+*.mkv
+*.jpg
+*.jpeg
+*.png
